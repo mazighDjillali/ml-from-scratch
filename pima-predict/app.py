@@ -145,6 +145,6 @@ def predict(Pregnancies: float = Form(...), Glucose: float = Form(...),
         X[X[:, j] == 0, j] = ART["mean"][j]
     X = (X - ART["mean"]) / ART["std"]
     proba = float(sigmoid(X @ ART["w"] + ART["b"])[0])
-    classe = int(proba > 0.5)
+    classe = int(proba > ART["threshold"])
     # --- sortie JSON pour le front ---
     return JSONResponse({"proba": proba, "classe": classe})
